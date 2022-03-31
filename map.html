@@ -31,7 +31,7 @@
 function onMapClick(e) {
   let lat = e.latlng.lat; // 緯度
   let lng = e.latlng.lng; // 經度
-  ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
+  //ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
   popup
     .setLatLng(e.latlng)
     .setContent(`緯度：${lat}<br/>經度：${lng}`)
