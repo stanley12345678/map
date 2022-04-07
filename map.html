@@ -47,14 +47,16 @@ L.control.layers(mapLayers).addTo(map); // 加入地圖切換控制項
   timeout: 1000 // 觸發locationerror事件之前等待的毫秒數
 });
 		
-			const popup = L.popup();
+const popup = L.popup();
 function onMapClick(e) {
   let lat = e.latlng.lat; // 緯度
   let lng = e.latlng.lng; // 經度
-  //ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
+var myLocation = e.latlng // 使用者位置
+  let s = myLocation.distanceTo(bookstore);
+  //ThunkableWebviewerExtension.postMessage(lat + "," + lng);
   popup
     .setLatLng(e.latlng)
-    .setContent(`緯度：'+ s + ' 經度：`)
+    .setContent(`距離：'+ s + ' 公尺：`)
     .openOn(map);
 }
 map.on('click', onMapClick);
