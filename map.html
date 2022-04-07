@@ -44,20 +44,14 @@ const popup = L.popup();
 function onMapClick(e) {
   let lat = e.latlng.lat; // 緯度
   let lng = e.latlng.lng; // 經度
-  var myLocation = e.latlng // 使用者位置
-  let s = myLocation.distanceTo(bookstore);
+
   //ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
-    popup
+  popup
     .setLatLng(e.latlng)
     .setContent(`緯度：${lat}<br/>經度：${lng}`)
     .openOn(map);
 }
 map.on('click', onMapClick);
-   // 成功監聽到使用者的位置時觸發
-map.on('locationfound', onLocationFound);
-
-// 失敗時觸發
-map.on('locationerror', onLocationError);
 
 function onLocationFound(e) {
    var myLocation = e.latlng // 使用者位置
