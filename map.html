@@ -47,9 +47,9 @@ function onMapClick(e) {
   var myLocation = e.latlng // 使用者位置
   let s = myLocation.distanceTo(bookstore);
   //ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
-  popup
+    popup
     .setLatLng(e.latlng)
-    .setContent(`緯度：'+ s + ' 經度：`)
+    .setContent(`緯度：${lat}<br/>經度：${lng}`)
     .openOn(map);
 }
 map.on('click', onMapClick);
