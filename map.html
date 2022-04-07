@@ -2,28 +2,21 @@
 <html>
 <head>
     <title>地圖</title>
-	<meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
 	<script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
 </head>
+ 
 <body>
     <div id="map" style="height: 600px;"></div>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script>
-	var center = [23,123];	
-	
-
-
-
-
-	        // 初始化地圖
+        // 初始化地圖
         var map = L.map('map', {
-            center: center, // 中心點座標
+            center: [23,123], // 中心點座標
             zoom: 10
         });
-
-	
 // 設定地圖名稱以及對應的TileLayer
 var mapLayers = {
     '中文': L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP98/default/GoogleMapsCompatible/{z}/{y}/{x}', {
@@ -41,40 +34,26 @@ var mapLayers = {
 };
 mapLayers['中文'].addTo(map); // 使用中文地圖作為預設
 L.control.layers(mapLayers).addTo(map); // 加入地圖切換控制項
-        
-		// 使用OpenStreetMap圖資
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-		
-		map.locate({
-  setView: true, // 是否讓地圖跟著移動中心點
-  watch: true, // 是否要一直監測使用者位置
-  maxZoom: 18, // 最大的縮放值
-  enableHighAccuracy: true, // 是否要高精準度的抓位置
-  timeout: 1000 // 觸發locationerror事件之前等待的毫秒數
-});
 
 
 // setView 可以設定地圖座標
 // watch 則是持續監聽使用者的位置
 map.locate({setView: true, watch: true});
-
+		
 const popup = L.popup();
 function onMapClick(e) {
   let lat = e.latlng.lat; // 緯度
   let lng = e.latlng.lng; // 經度
-var myLocation = e.latlng // 使用者位置
+  var myLocation = e.latlng // 使用者位置
   let s = myLocation.distanceTo(bookstore);
-  //ThunkableWebviewerExtension.postMessage(lat + "," + lng);
-    popup
+  //ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
+  popup
     .setLatLng(e.latlng)
-    .setContent(`距離：' + s + '公尺`)
+    .setContent(`緯度：'+ s + ' 經度：`)
     .openOn(map);
 }
 map.on('click', onMapClick);
-
-// 成功監聽到使用者的位置時觸發
+   // 成功監聽到使用者的位置時觸發
 map.on('locationfound', onLocationFound);
 
 // 失敗時觸發
