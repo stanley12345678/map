@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>地圖</title>
-    <meta charset="UTF-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
 	<script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
 </head>
@@ -13,17 +13,17 @@
     <script>
 	var center = [23,123];	
 	
-	
-	
-	
-	
-        // 初始化地圖
+
+
+
+
+	        // 初始化地圖
         var map = L.map('map', {
-            center: [23,123], // 中心點座標
+            center: center, // 中心點座標
             zoom: 10
         });
-		
-		
+
+	
 // 設定地圖名稱以及對應的TileLayer
 var mapLayers = {
     '中文': L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP98/default/GoogleMapsCompatible/{z}/{y}/{x}', {
@@ -43,16 +43,17 @@ mapLayers['中文'].addTo(map); // 使用中文地圖作為預設
 L.control.layers(mapLayers).addTo(map); // 加入地圖切換控制項
 
 
+
+
 // setView 可以設定地圖座標
 // watch 則是持續監聽使用者的位置
 map.locate({setView: true, watch: true});
-		
+
 const popup = L.popup();
 function onMapClick(e) {
   let lat = e.latlng.lat; // 緯度
   let lng = e.latlng.lng; // 經度
-
-  ThunkableWebviewerExtension.postMessage(lat + ","+ lon);
+  ThunkableWebviewerExtension.postMessage(lat + "," + lng);
   popup
     .setLatLng(e.latlng)
     .setContent(`緯度：${lat}<br/>經度：${lng}`)
@@ -68,7 +69,7 @@ map.on('locationerror', onLocationError);
 
 function onLocationFound(e) {
    var myLocation = e.latlng // 使用者位置
-
+   
 const marker = L.marker(myLocation, {
   title: '跟 <a> 的 title 一樣', // 跟 <a> 的 title 一樣
   opacity: 1.0
